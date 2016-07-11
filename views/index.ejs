@@ -8,10 +8,35 @@
   <div class="container-fluid">
   	<div class="container">
   		<% include partials/nav.ejs %>
-	    <h1>Home</h1>
-	    <p>Welcome to Home</p>    
+	    <h1>Keys</h1>
+            <form method="GET" action="search">
+                <label>Select worker</label>
+                <select name="worker_id">
+                </select>
+                <label>Enter customer name</label>
+                <input type="text" name="customer_name"/>
+                <div>
+                    <div class="button" onclick="window.KeysApp.searchRecord()">Search</div>
+                </div>
+            </form>
+            <div id="search-output"></div>
+            <canvas id="appartment-chart" width="600" height="400"></canvas>
+            <form method="POST" action="record">
+                <div id="post-record-message"></div>
+                <label>Enter customer name</label>
+                <input type="text" name="customer_name"/>
+                <label>Enter worker name</label>
+                <input type="text" name="worker_name"/>
+                <label>Enter appartment number</label>
+                <input type="text" name="appartment_number"/>
+                <label>Enter key name</label>
+                <input type="text" name="key_name"/>
+                <div>
+                    <div class="button" onclick="window.KeysApp.addRecord()">Add record</div>
+                </div>
+            </form>    
   	</div>
   </div>
-  <% include partials/script.ejs %>
+  <% include partials/scripts.ejs %>
   </body>
 </html>
