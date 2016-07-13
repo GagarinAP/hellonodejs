@@ -1,36 +1,28 @@
 var express = require('express');
-var bodyParser = require('body-parser');
-var path = require('path');
-var keysModule = require('./module/module.js');
-var appView = require('./module/appView.js');
+var bodyParser = require("body-parser");
+var appView = require('./views/appView.js');
+var module = require('./module/module.js');
 
 var app = express();
 
-
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(express.static('public'));
 
-app.use(express.static(path.join(__dirname, 'public')));
 
-
-app.get('/workers', function (req, res) {
-    res.send(keysModule.getAllWorkers());
+app.get('/all', function (req, res) {
+	res.send(module.displayAll(req.query));
 });
 
-app.get('/search', function (req, res) {
-  res.send(appView.searchRecord(req.query));
+app.get('/db', function(req, res, next) {
+    res.send(module.displayId(req.query)); 
+    next();   
 });
-
-app.get('/chart', function (req, res) {
-  res.send(appView.getChartData());
+app.get('/db/:id', function(req, res, next) {
+    res.send('User: ' + req.params.id);        
 });
-
-app.post('/record', function (req, res) {
-    res.send(appView.addRecord(req.body)) ;
-});
-
 
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('App run...3000 port');
 });
