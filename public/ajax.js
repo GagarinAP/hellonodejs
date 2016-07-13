@@ -4,8 +4,8 @@ $(function () {
 
         var init = function(event) {
         	console.log(event);
-            $.ajax('/all').done(displayAll);  
-            $.ajax('/db/').done(displayId);                
+            //$.ajax('/all').done(displayAll);  
+            $.ajax('/user/').done(displayId);                
     	};
 
     	function displayAll(data) {
