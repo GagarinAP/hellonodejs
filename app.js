@@ -19,13 +19,8 @@ app.get('/all', function(req, res) {
     res.send(module.displayAll(req.query) );
 });
 
-/*app.get('/user.html?id=', function(req, res) {	
-	console.log(req.query.id);
-    res.send(module.displayId(req.query.id));
-});*/
 app.get('/user/:id', function(req, res) {	
-	console.log(req.query.id);
-	res.send(module.displayId(req.query.id));
+	res.send(module.displayId(req.params.id));
 });
 
 

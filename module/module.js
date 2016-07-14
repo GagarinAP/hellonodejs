@@ -28,7 +28,7 @@ module.exports = (function () {
                 result.push(data[i]);
             }
         }        
-        return result;       
+        return result;  
     }; 
 
     return {

@@ -1,11 +1,15 @@
 $(function () {
 
-    window.moduleApp = (function (params) {
+    window.moduleApp = (function () {
 
         var init = function(event) {
         	console.log(event);
-            $.ajax('/all').done(displayAll);  
-            $.ajax('/user/' + params.id).done(displayId);                
+            $.ajax('/all').done(displayAll); 
+            var id = location.search.split('id=')[1];			
+             $.ajax('/user/' + id ).done(function (data) {
+				displayId(data);
+				}
+			 );                
     	};
 
     	function displayAll(data) {
@@ -30,12 +34,12 @@ $(function () {
 		}
 		function displayId(data) {
 			var result = '<h1>User: </h1><table class="table">' +
-					'<thead><tr><th>name</th><th>soname</th><th>town</th><th>street</th><th>number</th><th>apartment</th></thead>' +
+					'<thead><tr><th>id</th><th>name</th><th>soname</th><th>town</th><th>street</th><th>number</th><th>apartment</th></thead>' +
 					'<tbody>';
 					//data = JSON.parse(data);
 				for (var i = 0; i < data.length; ++i) {					
-					result += '<tr><td>' + data.id + '</td>';
-					result += '<td>' + data.person.name + '</td>';
+					result += '<tr><td>' + data[i].id + '</td>';
+					result += '<td>' + data[i].person.name + '</td>';
 					result += '<td>' + data[i].person.soname + '</td>';
 					result += '<td>' + data[i].person.adress.town + '</td>';
 					result += '<td>' + data[i].person.adress.street + '</td>';
