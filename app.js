@@ -1,38 +1,31 @@
 var express = require('express');
-var bodyParser = require("body-parser");
-var appView = require('./views/appView.js');
+var path = require('path');
+var favicon = require('serve-favicon');
+var bodyParser = require('body-parser');
 var module = require('./module/module.js');
+var appView = require('./views/appView.js');
+
 
 var app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(bodyParser.json());
-app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 
-/*app.get('/all', function (req, res) {
-	res.send(module.displayAll(req.query));
-});*/
 
-/*app.get('/db/:id', function(req, res) {
-	res.send(module.displayId(req.params.id));        
-});*/
-
-app.get('/user/:id', function(req, res, next) {
-    var id = req.params.id;
-    if (id) {
-        res.send(module.displayId(id));
-    } else {
-        next();
-    }
+app.get('/all', function(req, res) {	
+    res.send(module.displayAll(req.query) );
 });
 
-app.get('/user', function(req, res) {
-    res.send(module.displayAll(req.query));
+app.get('/user.html?id=', function(req, res) {	
+	console.log(req.query.id);
+    res.send(module.displayId(req.query.id));
 });
 
 
 
-app.listen(3000, function () {
-  console.log('App run...3000 port');
+app.listen(3000,function(){
+	console.log('Run is 3000');
 });
